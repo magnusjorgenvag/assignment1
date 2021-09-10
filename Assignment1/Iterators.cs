@@ -16,7 +16,11 @@ namespace Assignment1
 
         public static IEnumerable<T> Filter<T>(IEnumerable<T> items, Predicate<T> predicate)
         {
-            throw new NotImplementedException();
+            foreach (var item in items) {
+                if (predicate(item)) {
+                    yield return item;
+                }
+            }
         }
     }
 }
