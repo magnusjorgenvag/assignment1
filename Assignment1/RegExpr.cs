@@ -20,12 +20,21 @@ namespace Assignment1
 
         public static IEnumerable<(int width, int height)> Resolution(string resolutions)
         {
-            throw new NotImplementedException();
+            foreach (Match match in Regex.Matches(resolutions, @"(?<width>\d*)x(?<height>\d*)")) {
+                var width = match.Groups["width"].Value;
+                var height = match.Groups["height"].Value;
+
+                yield return (Int32.Parse(width), Int32.Parse(height));
+            } 
         }
 
         public static IEnumerable<string> InnerText(string html, string tag)
         {
-            throw new NotImplementedException();
+            var regexOutput = string.Format(@"<[{0}][^>]*>(?<innertext>.+?)</[{0}]>", tag);
+            foreach (Match match in Regex.Matches(html, regexOutput))
+            {
+                yield return Regex.Replace(match.Groups["innertext"].Value, "<[^>]*>", "");
+            }
         }
     }
 }
